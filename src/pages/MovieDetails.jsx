@@ -1,6 +1,7 @@
 import { fetchFilm } from 'services/api';
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useLocation, Outlet } from 'react-router-dom';
+import { HiArrowNarrowLeft } from "react-icons/hi";
 
 export const MovieDetails = () => {
   const [film, setFilm] = useState({
@@ -31,7 +32,7 @@ export const MovieDetails = () => {
       {film.title && (
         <div>
           <Link className="backLink" to={backLinkHref.current}>
-            Go back
+            <HiArrowNarrowLeft/> Go back
           </Link>
           <div className="filmInfo">
             <div className="imgBox">

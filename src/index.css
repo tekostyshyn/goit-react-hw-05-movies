@@ -137,7 +137,10 @@ ol {
 }
 
 .backLink {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
   text-decoration: none;
   width: 200px;
   padding-top: 10px;
@@ -158,4 +161,44 @@ ol {
 
 .actorPic {
   margin-bottom: 10px;
+}
+
+.searchForm {
+  height: 40px;
+  margin-bottom: 15px;
+}
+
+.input {
+  box-sizing: border-box;
+  width: 200px;
+  height: 100%;
+  margin-right: 10px;
+  border: 1px solid darkgray;
+  background-color: white;
+  font-size: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.input:hover,
+.input:focus {
+  border: 2px solid mediumvioletred;
+  outline: none;
+}
+
+.searchButton {
+  width: 100px;
+  height: 100%;
+  background-color: white;
+  border: 1px solid darkgray;
+  color: black;
+  text-align: center;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.searchButton:hover,
+.searchButton:focus {
+  border: 2px solid mediumvioletred;
+  outline: none;
 }
