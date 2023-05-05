@@ -8,21 +8,27 @@ import { Reviews } from './Reviews';
 export const App = () => {
   return (
     <div>
-      <header className='header'>
-        <nav className='nav'>
-          <NavLink to="/" className='navlink'>Home</NavLink>
-          <NavLink to="/movies" className='navlink'>Movies</NavLink>
+      <header className="header">
+        <nav className="nav">
+          <NavLink to="/" className="navlink">
+            Home
+          </NavLink>
+          <NavLink to="/movies" className="navlink">
+            Movies
+          </NavLink>
         </nav>
       </header>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/movies/:movieId" element={<MovieDetails />}>
-          <Route path="cast" element={<Cast />} />
-          <Route path="reviews" element={<Reviews />} />
-        </Route>
-        <Route path="*" element={<Home />} />
-      </Routes>
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies/:movieId" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </div>
     </div>
   );
 };
