@@ -8,10 +8,10 @@ import { Reviews } from './Reviews';
 export const App = () => {
   return (
     <div>
-      <header>
-        <nav>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/movies">Movies</NavLink>
+      <header className='header'>
+        <nav className='nav'>
+          <NavLink to="/" className='navlink'>Home</NavLink>
+          <NavLink to="/movies" className='navlink'>Movies</NavLink>
         </nav>
       </header>
       <Routes>
