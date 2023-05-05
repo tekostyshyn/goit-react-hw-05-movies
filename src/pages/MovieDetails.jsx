@@ -1,6 +1,6 @@
 import { fetchFilm } from 'services/api';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { useParams, Link, useLocation, Outlet } from 'react-router-dom';
 
 export const MovieDetails = () => {
   const [film, setFilm] = useState({
@@ -10,6 +10,8 @@ export const MovieDetails = () => {
     genres: [],
   });
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLinkHref = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,26 +29,47 @@ export const MovieDetails = () => {
   return (
     <>
       {film.title && (
-        <div className='filmInfo'>
-          <div className='imgBox'>
-            <img
-              src={`https://image.tmdb.org/t/p/original${film.poster_path}
+        <div>
+          <Link className="backLink" to={backLinkHref.current}>
+            Go back
+          </Link>
+          <div className="filmInfo">
+            <div className="imgBox">
+              <img
+                src={`https://image.tmdb.org/t/p/original${film.poster_path}
           `}
-              alt={film.title}
-            />
+                alt={film.title}
+              />
+            </div>
+            <div className="textBox">
+              <h2 className="title">{film.title}</h2>
+              <p className="text">
+                User score: {Math.floor(film.vote_average * 10)}%
+              </p>
+              <h3 className="subtitle">Overview</h3>
+              <p className="text">{film.overview}</p>
+              <h3 className="subtitle">Genres</h3>
+              <p className="text">
+                {film.genres.map(genre => (
+                  <span className="textGenre" key={genre.id}>
+                    {genre.name}
+                  </span>
+                ))}
+              </p>
+            </div>
           </div>
-          <div className='textBox'>
-            <h2 className='title'>{film.title}</h2>
-            <p className='text'>User score: {Math.floor(film.vote_average * 10)}%</p>
-            <h3 className='subtitle'>Overview</h3>
-            <p className='text'>{film.overview}</p>
-            <h3 className='subtitle'>Genres</h3>
-            <p className='text'>
-              {film.genres.map(genre => (
-                <span className='textGenre' key={genre.id}>{genre.name}</span>
-              ))}
-            </p>
+          <div className="addInfoBox">
+            <p className="subtitle">Additional information</p>
+            <ul className='filmsList'>
+              <Link className="filmLink" to="cast">
+                Cast
+              </Link>
+              <Link className="filmLink" to="reviews">
+                Reviews
+              </Link>
+            </ul>
           </div>
+          <Outlet />
         </div>
       )}
     </>
