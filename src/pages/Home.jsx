@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchTrending } from 'services/api';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [trending, setTrending] = useState([]);
@@ -19,9 +20,15 @@ const Home = () => {
 
   return (
     <>
-      <h1 className='mainTitle'>Trending today</h1>
-      <ul className='filmsList'>
-        {trending.map(film => <li key={film.id}><a href="#" className='filmLink'>{film['original_title']}</a></li>)}
+      <h1 className="mainTitle">Trending today</h1>
+      <ul className="filmsList">
+        {trending.map(({id, title}) => (
+          <li key={id}>
+            <Link to={`/movies/${id}`} className="filmLink">
+              {title}
+            </Link>
+          </li>
+        ))}
       </ul>
     </>
   );
