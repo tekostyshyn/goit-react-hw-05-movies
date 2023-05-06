@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams, Link, useLocation } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import { fetchByQuery } from 'services/api';
+import { MovieList } from 'components/MovieList';
+import { Form } from 'components/Form';
 
 const Movies = () => {
   const [films, setFilms] = useState([]);
@@ -8,7 +10,7 @@ const Movies = () => {
   const location = useLocation();
   const queryValue = searchParams.get('query') ?? '';
 
-  const handleSubmit = async e => {
+  const handleSubmit = e => {
     e.preventDefault();
     const inputValue = e.currentTarget.elements.query.value;
     if (inputValue === '') {
@@ -36,21 +38,12 @@ const Movies = () => {
 
   return (
     <div>
-      <form className='searchForm' onSubmit={handleSubmit}>
-        <input className='input' type="text" name="query" />
-        <button className='searchButton' type="submit">Search</button>
-      </form>
-      {films.length > 0 && (
-        <ul className='filmsList'>
-          {films.map(film => (
-            <li key={film.id}>
-              <Link className='filmLink' to={`${film.id}`} state={{ from: location }}>
-                {film.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <Form
+        onSubmit={e => {
+          handleSubmit(e);
+        }}
+      />
+      {films.length > 0 && <MovieList movies={films} location={location} />}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchCast } from 'services/api';
+import dummyCastPic from 'images/dummy-profile-pic.png';
 
 export const Cast = () => {
   const { movieId } = useParams();
@@ -11,6 +12,7 @@ export const Cast = () => {
       try {
         const response = await fetchCast(movieId);
         setCast(response.cast);
+        console.log(response.cast);
       } catch (error) {
         console.log(error);
       }
@@ -25,10 +27,15 @@ export const Cast = () => {
         <>
           {cast.map(actor => (
             <div key={actor.id}>
-              <img className='actorPic'
-                src={`https://image.tmdb.org/t/p/w200${actor.profile_path}
-                  `}
-                alt=""
+              <img
+                className="actorPic"
+                src={
+                  actor.profile_path
+                    ? `https://image.tmdb.org/t/p/original${actor.profile_path}`
+                    : dummyCastPic
+                }
+                width="200px"
+                alt={actor.name}
               />
               <p className="text">
                 {actor.name} <br />

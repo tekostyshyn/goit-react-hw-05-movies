@@ -1,7 +1,8 @@
 import { fetchFilm } from 'services/api';
 import { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useLocation, Outlet } from 'react-router-dom';
-import { HiArrowNarrowLeft } from "react-icons/hi";
+import { HiArrowNarrowLeft } from 'react-icons/hi';
+import dummyMoviePic from 'images/dummy-image-portrait.jpg';
 
 export const MovieDetails = () => {
   const [film, setFilm] = useState({
@@ -32,13 +33,16 @@ export const MovieDetails = () => {
       {film.title && (
         <div>
           <Link className="backLink" to={backLinkHref.current}>
-            <HiArrowNarrowLeft/> Go back
+            <HiArrowNarrowLeft /> Go back
           </Link>
           <div className="filmInfo">
             <div className="imgBox">
               <img
-                src={`https://image.tmdb.org/t/p/original${film.poster_path}
-          `}
+                src={
+                  film.poster_path
+                    ? `https://image.tmdb.org/t/p/original${film.poster_path}`
+                    : dummyMoviePic
+                }
                 alt={film.title}
               />
             </div>
@@ -61,7 +65,7 @@ export const MovieDetails = () => {
           </div>
           <div className="addInfoBox">
             <p className="subtitle">Additional information</p>
-            <ul className='filmsList'>
+            <ul className="filmsList">
               <Link className="filmLink" to="cast">
                 Cast
               </Link>
