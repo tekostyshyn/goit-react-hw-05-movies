@@ -10,9 +10,7 @@ const Movies = () => {
   const location = useLocation();
   const queryValue = searchParams.get('query') ?? '';
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const inputValue = e.currentTarget.elements.query.value;
+  const changeParams = inputValue => {
     if (inputValue === '') {
       return setSearchParams({});
     }
@@ -38,11 +36,7 @@ const Movies = () => {
 
   return (
     <div>
-      <Form
-        onSubmit={e => {
-          handleSubmit(e);
-        }}
-      />
+      <Form onSubmit={changeParams} />
       {films.length > 0 && <MovieList movies={films} location={location} />}
     </div>
   );
