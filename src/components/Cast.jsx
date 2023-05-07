@@ -3,18 +3,21 @@ import { useParams } from 'react-router-dom';
 import { fetchCast } from 'services/api';
 import dummyCastPic from 'images/dummy-profile-pic.png';
 
-export const Cast = () => {
+const Cast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const response = await fetchCast(movieId);
         setCast(response.cast);
-        console.log(response.cast);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -45,6 +48,9 @@ export const Cast = () => {
           ))}
         </>
       )}
+      {cast.length <= 0 && isLoading === false && <div>No cast found</div>}
     </>
   );
 };
+
+export default Cast;

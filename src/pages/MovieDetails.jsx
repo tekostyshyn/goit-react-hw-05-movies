@@ -1,10 +1,10 @@
 import { fetchFilm } from 'services/api';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useParams, Link, useLocation, Outlet } from 'react-router-dom';
 import { HiArrowNarrowLeft } from 'react-icons/hi';
 import dummyMoviePic from 'images/dummy-image-portrait.jpg';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [film, setFilm] = useState({
     original_title: '',
     vote_average: 0,
@@ -14,14 +14,18 @@ export const MovieDetails = () => {
   const { movieId } = useParams();
   const location = useLocation();
   const backLinkHref = useRef(location.state?.from ?? '/movies');
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const response = await fetchFilm(movieId);
         setFilm(response);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -74,9 +78,16 @@ export const MovieDetails = () => {
               </Link>
             </ul>
           </div>
-          <Outlet />
+          <Suspense fallback={<div>Loading page...</div>}>
+            <Outlet />
+          </Suspense>
         </div>
+      )}
+      {!film.title && isLoading === false && (
+        <div className='text'>Sorry, there is no such film found.</div>
       )}
     </>
   );
 };
+
+export default MovieDetails;

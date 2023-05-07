@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
 
-export const Header = () => {
+const Header = () => {
   return (
     <>
       <header className="header">
@@ -14,8 +15,12 @@ export const Header = () => {
         </nav>
       </header>
       <div className="container">
-        <Outlet />
+        <Suspense fallback={<div>Loading page...</div>}>
+          <Outlet />
+        </Suspense>
       </div>
     </>
   );
 };
+
+export default Header;
