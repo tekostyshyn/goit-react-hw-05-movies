@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/805.a90cb280.chunk.js","mappings":"0JAMA,UANiB,WACb,OAAO,gBAAKA,UAAU,OAAf,4CAGV,C","sources":["pages/NotFound.jsx"],"sourcesContent":["const NotFound = () => {\n    return <div className=\"text\">\n        Sorry, such page doesn't exist.\n    </div>\n}\n\nexport default NotFound"],"names":["className"],"sourceRoot":""}
